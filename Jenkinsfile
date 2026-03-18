@@ -61,7 +61,6 @@ pipeline {
                         docker.image("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}").push()
                     }
                 }
-                docker.image("olgachi/sep2_week1_inclass_assignment:latest").push()
             }
         }
     }
