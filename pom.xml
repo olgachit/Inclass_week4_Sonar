@@ -27,6 +27,16 @@
                 </configuration>
             </plugin>
 
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>org.example.Main</mainClass>
+                </configuration>
+            </plugin>
+
             <!-- JAR Plugin for configuring the manifest file -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -96,6 +106,16 @@
             <artifactId>junit-jupiter</artifactId>
             <version>5.11.1</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>21.0.6</version>
         </dependency>
 
     </dependencies>
