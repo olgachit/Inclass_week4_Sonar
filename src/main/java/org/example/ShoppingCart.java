@@ -1,7 +1,7 @@
 package org.example;
 
 import java.util.*;
-
+/*
 public class ShoppingCart {
     public static String getOrdinal(int number) {
         if (number >= 11 && number <= 13) {
@@ -67,3 +67,5 @@ public class ShoppingCart {
         return price * quantity;
     }
 }
+
+ */

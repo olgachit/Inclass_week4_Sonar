@@ -17,8 +17,6 @@ public class Main extends Application {
         // Load the FXML file
         URL fxmlUrl = getClass().getResource("/org/example/main_view.fxml");
         FXMLLoader loader = new FXMLLoader(fxmlUrl);
-
-        loader.setResources(ResourceBundle.getBundle("MessagesBundle", new Locale("en", "US")));
         VBox root = loader.load();
 
         Scene scene = new Scene(root, 500, 600);
