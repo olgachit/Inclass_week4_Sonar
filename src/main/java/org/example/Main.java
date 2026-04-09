@@ -7,8 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class Main extends Application {
 

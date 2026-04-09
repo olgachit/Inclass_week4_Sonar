@@ -24,13 +24,14 @@ public class Controller {
     @FXML private Button addItemButton;
 
     private Map<String, String> rb;
-    private LocalizationService localizationService = new LocalizationService();
     private CartService cartService = new CartService();
     private int cartId;
     private String currentLanguage = "en";
     private int itemCount;
     private int currentItem = 1;
     private double total = 0;
+    private String totalCartKey = "total.cart";
+    private String labelItemKey = "label.item";
 
     @FXML
     public void initialize() {
@@ -48,14 +49,14 @@ public class Controller {
         currentItem = 1;
         total = 0;
         cartId = cartService.saveCartRecord(itemCount, total, currentLanguage);
-        itemLabel.setText(rb.get("label.item") + " " + currentItem);
-        totalLabel.setText(rb.get("total.cart") + " " + total);
+        itemLabel.setText(rb.get(labelItemKey) + " " + currentItem);
+        totalLabel.setText(rb.get(totalCartKey) + " " + total);
     }
 
     @FXML
     public void handleAddItem() {
         if (currentItem > itemCount) {
-            totalLabel.setText(rb.get("total.cart") + " " + total);
+            totalLabel.setText(rb.get(totalCartKey) + " " + total);
             return;
         }
         try {
@@ -69,11 +70,11 @@ public class Controller {
 
             if (currentItem > itemCount) {
                 cartService.updateCartTotal(cartId, total);
-                totalLabel.setText(rb.get("total.cart") + " " + total);
+                totalLabel.setText(rb.get(totalCartKey) + " " + total);
                 disableInputs();
             } else {
                 totalLabel.setText(rb.get("total.items") + " " + itemTotal);
-                itemLabel.setText(rb.get("label.item") + " " + currentItem);
+                itemLabel.setText(rb.get(labelItemKey) + " " + currentItem);
             }
 
             priceField.clear();
@@ -86,7 +87,6 @@ public class Controller {
 
     private void changeLanguage() {
         String lang = languageComboBox.getValue();
-        Locale locale;
 
         switch (lang) {
             case "English":  currentLanguage = "en"; break;
@@ -102,8 +102,8 @@ public class Controller {
         itemCountField.setPromptText(rb.get("prompt.items"));
         priceField.setPromptText(rb.get("prompt.price"));
         quantityField.setPromptText(rb.get("prompt.quantity"));
-        itemLabel.setText(rb.get("label.item") + " " + currentItem);
-        totalLabel.setText(rb.get("total.cart") + " " + total);
+        itemLabel.setText(rb.get(labelItemKey) + " " + currentItem);
+        totalLabel.setText(rb.get(totalCartKey) + " " + total);
         appName.setText(rb.get("app.name"));
         startButton.setText(rb.get("button.start"));
         addItemButton.setText(rb.get("button.add"));

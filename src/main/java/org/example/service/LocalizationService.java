@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 public class LocalizationService {
+    private LocalizationService() {
+    }
     public static Map<String, String> getStrings(String language) {
         Map<String, String> map = new HashMap<>();
 

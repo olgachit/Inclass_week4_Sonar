@@ -1,8 +1,11 @@
 package org.example;
 
 import java.util.*;
+import java.util.logging.Logger;
+import java.text.MessageFormat;
 
 public class ShoppingCart {
+    private static final Logger logger = Logger.getLogger(ShoppingCart.class.getName());
     public static String getOrdinal(int number) {
         if (number >= 11 && number <= 13) {
             return number + "th";
@@ -17,32 +20,32 @@ public class ShoppingCart {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Select a language:");
-        System.out.println("1. English");
-        System.out.println("2. Finnish");
-        System.out.println("3. Japanese");
-        System.out.println("4. Swedish");
+        logger.info("Select a language:");
+        logger.info("1. English");
+        logger.info("2. Finnish");
+        logger.info("3. Japanese");
+        logger.info("4. Swedish");
         int choice = scanner.nextInt();
         Locale locale;
         switch (choice) {
             case 1:
-                locale = new Locale("en", "US");
+                locale = Locale.forLanguageTag("en-US");
                 break;
             case 2:
-                locale = new Locale("fi", "FI");
+                locale = Locale.forLanguageTag("fi-FI");
                 break;
             case 3:
-                locale = new Locale("ja", "JP");
+                locale = Locale.forLanguageTag("ja-JP");
                 break;
             case 4:
-                locale = new Locale("sv", "SE");
+                locale = Locale.forLanguageTag("sv-SE");
                 break;
             default:
-                locale = new Locale("en", "US");
+                locale = Locale.forLanguageTag("en-US");
         }
         ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", locale);
 
-        System.out.println(rb.getString("prompt.items"));
+        logger.info(() -> rb.getString("prompt.items"));
         int itemCount = scanner.nextInt();
 
         double total = 0;
@@ -50,18 +53,19 @@ public class ShoppingCart {
         for (int i = 1; i <= itemCount; i++) {
             String ordinal = getOrdinal(i);
 
-            System.out.println(rb.getString("prompt.price").replace("{0}", ordinal));
+            logger.info(() -> MessageFormat.format(rb.getString("prompt.price"), ordinal));
             double price = scanner.nextDouble();
 
-            System.out.println(rb.getString("prompt.quantity").replace("{0}", ordinal));
+            logger.info(() -> MessageFormat.format(rb.getString("prompt.quantity"), ordinal));
             int quantity = scanner.nextInt();
 
             double itemTotal = calculateItemTotal(price, quantity);
-            System.out.println(rb.getString("total.items")+" "+itemTotal);
+            logger.info(() -> rb.getString("total.items") + " " + itemTotal);
             total += itemTotal;
         }
 
-        System.out.println(rb.getString("total.cart") + " " + total);
+        double finalTotal = total;
+        logger.info(() -> rb.getString("total.cart") + " " + finalTotal);
     }
     public static double calculateItemTotal(double price, int quantity) {
         return price * quantity;
