@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shoppingcart-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shoppingcart-app
+  template:
+    metadata:
+      labels:
+        app: shoppingcart-app
+    spec:
+      containers:
+        - name: shoppingcart-app
+          image: shoppingcart-app:latest
+          imagePullPolicy: Never
+          env:
+            # X11 forwarding for GUI display
+            - name: DISPLAY
+              value: "host.minikube.internal:0"
+            # Database connection
+            - name: DB_HOST
+              value: "host.minikube.internal"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: "shopping_cart_localization"
+            - name: DB_USER
+              value: "db_user"
+            - name: DB_PASSWORD
+              value: "db_password"

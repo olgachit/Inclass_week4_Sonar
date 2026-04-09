@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.Controller" fx:id="root">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label fx:id="appName" text="app.name" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <ComboBox fx:id="languageComboBox" promptText="Select Language">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="English"/>
+                <String fx:value="Finnish"/>
+                <String fx:value="Swedish"/>
+                <String fx:value="Japanese"/>
+                <String fx:value="Arabic"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <TextField fx:id="itemCountField" promptText="prompt.items" />
+
+    <Button fx:id="startButton" text="button.start" onAction="#handleStart"/>
+
+    <TextField fx:id="priceField" promptText="prompt.price"/>
+    <TextField fx:id="quantityField" promptText="prompt.quantity"/>
+
+    <Button fx:id="addItemButton" text="button.add" onAction="#handleAddItem"/>
+
+    <Label fx:id="itemLabel" text="label.item"/>
+    <Label fx:id="totalLabel" text="label.total"/>
+
+</VBox>
