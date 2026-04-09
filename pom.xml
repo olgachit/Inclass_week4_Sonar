@@ -14,7 +14,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>21.0.6</javafx.version>
-        <sonar.projectKey>sonar</sonar.projectKey>
+        <sonar.projectKey>ShoppingCart</sonar.projectKey>
     </properties>
 
     <dependencies>

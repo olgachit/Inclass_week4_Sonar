@@ -1,6 +1,6 @@
-projectKey=sonar
+projectKey=ShoppingCart
 serverUrl=http://localhost:9000
 serverVersion=26.3.0.120487
-dashboardUrl=http://localhost:9000/dashboard?id=sonar
-ceTaskId=d73416a5-9c9f-4892-8069-dd8b7482a1c1
-ceTaskUrl=http://localhost:9000/api/ce/task?id=d73416a5-9c9f-4892-8069-dd8b7482a1c1
+dashboardUrl=http://localhost:9000/dashboard?id=ShoppingCart
+ceTaskId=02b9c415-2ea3-46bb-952b-c2d19ef21b06
+ceTaskUrl=http://localhost:9000/api/ce/task?id=02b9c415-2ea3-46bb-952b-c2d19ef21b06
