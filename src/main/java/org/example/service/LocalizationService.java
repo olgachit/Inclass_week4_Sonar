@@ -1,6 +1,8 @@
 package org.example.service;
 
 import org.example.DatabaseConnection;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalizationService {
+    private static final Logger logger = LoggerFactory.getLogger(LocalizationService.class);
+    private static final String ERROR = "Database error occurred";
     private LocalizationService() {
     }
     public static Map<String, String> getStrings(String language) {
@@ -29,7 +33,7 @@ public class LocalizationService {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e, () -> ERROR);
         }
 
         return map;

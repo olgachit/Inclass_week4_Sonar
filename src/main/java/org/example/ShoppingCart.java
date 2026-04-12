@@ -20,34 +20,37 @@ public class ShoppingCart {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        Locale locale = chooseLocale(scanner);
+        ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", locale);
+
+        double total = processCart(scanner, rb);
+
+        logger.info(() -> rb.getString("total.cart") + " " + total);
+    }
+
+    public static double calculateItemTotal(double price, int quantity) {
+        return price * quantity;
+    }
+    public static Locale chooseLocale(Scanner scanner) {
         logger.info("Select a language:");
         logger.info("1. English");
         logger.info("2. Finnish");
         logger.info("3. Japanese");
         logger.info("4. Swedish");
-        int choice = scanner.nextInt();
-        Locale locale;
-        switch (choice) {
-            case 1:
-                locale = Locale.forLanguageTag("en-US");
-                break;
-            case 2:
-                locale = Locale.forLanguageTag("fi-FI");
-                break;
-            case 3:
-                locale = Locale.forLanguageTag("ja-JP");
-                break;
-            case 4:
-                locale = Locale.forLanguageTag("sv-SE");
-                break;
-            default:
-                locale = Locale.forLanguageTag("en-US");
+
+        switch (scanner.nextInt()) {
+            case 2: return Locale.forLanguageTag("fi-FI");
+            case 3: return Locale.forLanguageTag("ja-JP");
+            case 4: return Locale.forLanguageTag("sv-SE");
+            default: return Locale.forLanguageTag("en-US");
         }
-        ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", locale);
+    }
 
+    public static double processCart(Scanner scanner, ResourceBundle rb) {
         logger.info(() -> rb.getString("prompt.items"));
-        int itemCount = scanner.nextInt();
 
+        int itemCount = scanner.nextInt();
         double total = 0;
 
         for (int i = 1; i <= itemCount; i++) {
@@ -59,15 +62,9 @@ public class ShoppingCart {
             logger.info(() -> MessageFormat.format(rb.getString("prompt.quantity"), ordinal));
             int quantity = scanner.nextInt();
 
-            double itemTotal = calculateItemTotal(price, quantity);
-            logger.info(() -> rb.getString("total.items") + " " + itemTotal);
-            total += itemTotal;
+            total += calculateItemTotal(price, quantity);
         }
 
-        double finalTotal = total;
-        logger.info(() -> rb.getString("total.cart") + " " + finalTotal);
-    }
-    public static double calculateItemTotal(double price, int quantity) {
-        return price * quantity;
+        return total;
     }
 }

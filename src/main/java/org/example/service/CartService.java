@@ -1,10 +1,14 @@
 package org.example.service;
 
 import org.example.DatabaseConnection;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.sql.*;
 
 public class CartService {
+    private static final Logger logger = LoggerFactory.getLogger(CartService.class);
+    private static final String ERROR = "Database error occurred";
 
     public int saveCartRecord(int totalItems, double totalCost, String language) {
         String sql = "INSERT INTO cart_records (total_items, total_cost, language) VALUES (?, ?, ?)";
@@ -24,7 +28,7 @@ public class CartService {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e, () -> ERROR);
         }
 
         return -1;
@@ -47,7 +51,7 @@ public class CartService {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e, () -> ERROR);
         }
     }
     public void updateCartTotal(int cartId, double total) {
@@ -62,7 +66,7 @@ public class CartService {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e, () -> ERROR);
         }
     }
 }

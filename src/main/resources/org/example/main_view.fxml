@@ -6,8 +6,7 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.Controller" fx:id="root">
+<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:id="root">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>

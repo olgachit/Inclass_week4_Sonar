@@ -6,25 +6,22 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.layout.VBox;
 import org.example.service.CartService;
 import org.example.service.LocalizationService;
-
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 public class Controller {
-    @FXML private ComboBox<String> languageComboBox;
-    @FXML private TextField itemCountField;
-    @FXML private TextField priceField;
-    @FXML private TextField quantityField;
-    @FXML private Label itemLabel;
-    @FXML private Label totalLabel;
-    @FXML private VBox root;
-    @FXML private Label appName;
-    @FXML private Button startButton;
-    @FXML private Button addItemButton;
+    @FXML ComboBox<String> languageComboBox;
+    @FXML TextField itemCountField;
+    @FXML TextField priceField;
+    @FXML TextField quantityField;
+    @FXML Label itemLabel;
+    @FXML Label totalLabel;
+    @FXML VBox root;
+    @FXML Label appName;
+    @FXML Button startButton;
+    @FXML Button addItemButton;
 
     private Map<String, String> rb;
-    private CartService cartService = new CartService();
+    private CartService cartService;
     private int cartId;
     private String currentLanguage = "en";
     private int itemCount;
@@ -32,6 +29,11 @@ public class Controller {
     private double total = 0;
     private String totalCartKey = "total.cart";
     private String labelItemKey = "label.item";
+
+    public Controller(CartService cartService, Map<String, String> rb) {
+        this.cartService = cartService;
+        this.rb = rb;
+    }
 
     @FXML
     public void initialize() {
@@ -119,5 +121,9 @@ public class Controller {
         priceField.setDisable(true);
         quantityField.setDisable(true);
         addItemButton.setDisable(true);
+    }
+
+    void setResourceBundle(Map<String, String> rb) {
+        this.rb = rb;
     }
 }
