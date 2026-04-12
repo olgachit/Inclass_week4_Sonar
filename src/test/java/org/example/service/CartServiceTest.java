@@ -114,4 +114,53 @@ class CartServiceTest {
             verify(stmt).executeUpdate();
         }
     }
+
+    @Test
+    void saveCartRecordHandlesSQLException() throws Exception {
+
+        Connection conn = mock(Connection.class);
+
+        try (MockedStatic<DatabaseConnection> dbMock = mockStatic(DatabaseConnection.class)) {
+
+            dbMock.when(DatabaseConnection::getConnection).thenReturn(conn);
+            when(conn.prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS)))
+                    .thenThrow(new SQLException("DB error"));
+
+            CartService service = new CartService();
+
+            int result = service.saveCartRecord(1, 1.0, "en");
+
+            assertEquals(-1, result);
+        }
+    }
+
+    @Test
+    void saveCartItemHandlesSQLException() throws Exception {
+        Connection conn = mock(Connection.class);
+
+        try (MockedStatic<DatabaseConnection> dbMock = mockStatic(DatabaseConnection.class)) {
+
+            dbMock.when(DatabaseConnection::getConnection).thenReturn(conn);
+            when(conn.prepareStatement(anyString())).thenThrow(new SQLException("DB error"));
+
+            CartService service = new CartService();
+
+            assertDoesNotThrow(() -> service.saveCartItem(1, 1, 10.0, 1));
+        }
+    }
+
+    @Test
+    void updateCartTotalHandlesSQLException() throws Exception {
+        Connection conn = mock(Connection.class);
+
+        try (MockedStatic<DatabaseConnection> dbMock = mockStatic(DatabaseConnection.class)) {
+
+            dbMock.when(DatabaseConnection::getConnection).thenReturn(conn);
+            when(conn.prepareStatement(anyString())).thenThrow(new SQLException("DB error"));
+
+            CartService service = new CartService();
+
+            assertDoesNotThrow(() -> service.updateCartTotal(1, 50.0));
+        }
+    }
 }

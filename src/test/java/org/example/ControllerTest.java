@@ -133,4 +133,26 @@ class ControllerTest {
 
         assertEquals("Invalid", controller.totalLabel.getText());
     }
+
+    @Test
+    void handleAddItemExceedsItemCount() {
+        controller.itemCountField.setText("1");
+
+        when(cartService.saveCartRecord(anyInt(), anyDouble(), anyString()))
+                .thenReturn(1);
+
+        controller.handleStart();
+
+        controller.priceField.setText("10");
+        controller.quantityField.setText("2");
+
+        controller.handleAddItem(); // first item
+
+        controller.priceField.setText("5");
+        controller.quantityField.setText("1");
+
+        controller.handleAddItem(); // exceeds item count
+
+        assertEquals("Total: 20.0", controller.totalLabel.getText());
+    }
 }
