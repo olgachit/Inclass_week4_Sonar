@@ -20,14 +20,14 @@ class ShoppingCartTest {
     }
 
     @Test
-    void testGetOrdinal_specialCases() {
+    void testGetOrdinalSpecialCases() {
         assertEquals("11th", ShoppingCart.getOrdinal(11));
         assertEquals("12th", ShoppingCart.getOrdinal(12));
         assertEquals("13th", ShoppingCart.getOrdinal(13));
     }
 
     @Test
-    void testGetOrdinal_higherNumbers() {
+    void testGetOrdinalHigherNumbers() {
         assertEquals("21st", ShoppingCart.getOrdinal(21));
         assertEquals("22nd", ShoppingCart.getOrdinal(22));
         assertEquals("23rd", ShoppingCart.getOrdinal(23));
@@ -42,7 +42,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    void testCalculateItemTotal_edgeCases() {
+    void testCalculateItemTotalEdgeCases() {
         assertEquals(0.0, ShoppingCart.calculateItemTotal(0.0, 5));
         assertEquals(7.5, ShoppingCart.calculateItemTotal(2.5, 3));
     }

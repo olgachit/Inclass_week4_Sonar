@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CartServiceTest {
+    private static final String ERROR = "DB error";
 
     @Test
     void saveCartRecordReturnsGeneratedId() throws Exception {
@@ -124,7 +125,7 @@ class CartServiceTest {
 
             dbMock.when(DatabaseConnection::getConnection).thenReturn(conn);
             when(conn.prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS)))
-                    .thenThrow(new SQLException("DB error"));
+                    .thenThrow(new SQLException(ERROR));
 
             CartService service = new CartService();
 
@@ -141,7 +142,7 @@ class CartServiceTest {
         try (MockedStatic<DatabaseConnection> dbMock = mockStatic(DatabaseConnection.class)) {
 
             dbMock.when(DatabaseConnection::getConnection).thenReturn(conn);
-            when(conn.prepareStatement(anyString())).thenThrow(new SQLException("DB error"));
+            when(conn.prepareStatement(anyString())).thenThrow(new SQLException(ERROR));
 
             CartService service = new CartService();
 
@@ -156,7 +157,7 @@ class CartServiceTest {
         try (MockedStatic<DatabaseConnection> dbMock = mockStatic(DatabaseConnection.class)) {
 
             dbMock.when(DatabaseConnection::getConnection).thenReturn(conn);
-            when(conn.prepareStatement(anyString())).thenThrow(new SQLException("DB error"));
+            when(conn.prepareStatement(anyString())).thenThrow(new SQLException(ERROR));
 
             CartService service = new CartService();
 
