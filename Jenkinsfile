@@ -9,9 +9,11 @@ pipeline {
         // Define Docker Hub credentials ID
         DOCKERHUB_CREDENTIALS_ID = 'docker_hub'
         // Define Docker Hub repository name
-        DOCKERHUB_REPO = 'olgachi/sep2_week2_inclass_assignment'
+        DOCKERHUB_REPO = 'olgachi/sep2_week5_inclass_assignment'
         // Define Docker image tag
         DOCKER_IMAGE_TAG = 'latest'
+        SONARQUBE_SERVER = 'SonarQubeServer'
+        SONAR_TOKEN = credentials('sonar_token')
     }
     stages {
         stage('Checkout') {
@@ -24,24 +26,20 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('Test') {
+
+        stage('SonarQube Analysis') {
             steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Code Coverage') {
-            steps {
-                sh 'mvn jacoco:report'
-            }
-        }
-        stage('Publish Test Results') {
-            steps {
-                junit '**/target/surefire-reports/*.xml'
-            }
-        }
-        stage('Publish Coverage Report') {
-            steps {
-                jacoco()
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh """
+                                ${tool 'SonarScanner'}\\bin\\sonar-scanner ^
+                                -Dsonar.projectKey=avg_consol ^
+                                -Dsonar.sources=src ^
+                                -Dsonar.projectName=avg_consol ^
+                                -Dsonar.host.url=http://localhost:9000 ^
+                                -Dsonar.login=${env.SONAR_TOKEN} ^
+                                -Dsonar.java.binaries=target/classes
+                            """
+                }
             }
         }
 

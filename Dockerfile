@@ -21,7 +21,10 @@ COPY src ./src
 # ✅ NOW Maven works correctly
 RUN mvn clean package -DskipTests
 
-# Debug
-RUN ls -l target/
+# ---------- Runtime stage ----------
+FROM --platform=linux/amd64 eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /app/target/avgspd1_pod.jar app.jar
+EXPOSE 8081
 
-CMD ["java", "--module-path", "/opt/javafx-sdk-21/lib", "--add-modules", "javafx.controls,javafx.fxml", "-jar", "target/shoppingcart.jar"]
+ENTRYPOINT ["java", "--module-path", "/opt/javafx-sdk-21/lib", "--add-modules", "javafx.controls,javafx.fxml", "-jar", "target/shoppingcart.jar"]
