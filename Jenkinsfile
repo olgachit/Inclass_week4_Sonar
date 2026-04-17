@@ -34,9 +34,9 @@ pipeline {
                         def scannerHome = tool 'SonarScanner'
                         sh """
                     ${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=avg_consol \
+                    -Dsonar.projectKey=ShoppingCart \
                     -Dsonar.sources=src \
-                    -Dsonar.projectName=avg_consol \
+                    -Dsonar.projectName=ShoppingCart \
                     -Dsonar.java.binaries=target/classes
                 """
                     }
