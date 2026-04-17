@@ -35,7 +35,7 @@ pipeline {
                         sh """
                     ${scannerHome}/bin/sonar-scanner \
                     -Dsonar.projectKey=ShoppingCart \
-                    -Dsonar.sources=src \
+                    -Dsonar.sources=src/main/java \
                     -Dsonar.projectName=ShoppingCart \
                     -Dsonar.java.binaries=target/classes
                 """
