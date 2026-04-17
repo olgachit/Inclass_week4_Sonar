@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/olgachit/ShoppingCart.git'
+                git branch: 'main', url: 'https://github.com/olgachit/Inclass_week4_Sonar.git'
             }
         }
         stage('Build') {
