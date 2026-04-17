@@ -8,7 +8,16 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static Dotenv dotenv = Dotenv.load();
+    static Dotenv dotenv;
+    static {
+        try {
+            dotenv = Dotenv.configure()
+                    .ignoreIfMissing()
+                    .load();
+        } catch (Exception e) {
+            dotenv = null;
+        }
+    }
     private static final String URL = "jdbc:mariadb://localhost:3306/shopping_cart_localization";
     private static final String USER = dotenv.get("DB_USER");
     private static final String PASS = dotenv.get("DB_PASS");
