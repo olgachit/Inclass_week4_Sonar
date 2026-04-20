@@ -155,4 +155,59 @@ class ControllerTest {
 
         assertEquals("Total: 20.0", controller.totalLabel.getText());
     }
+
+    @Test
+    void changeLanguageUpdatesUI() {
+        controller.languageComboBox.getItems().addAll("English", "Finnish", "Arabic");
+        controller.languageComboBox.setValue("English");
+
+        controller.changeLanguage();
+
+        assertEquals("Shopping Cart", controller.appName.getText());
+        assertEquals("Start", controller.startButton.getText());
+        assertEquals("Add item", controller.addItemButton.getText());
+        assertEquals("Enter the amount of items", controller.itemCountField.getPromptText());
+        assertEquals("Enter the price", controller.priceField.getPromptText());
+        assertEquals("Enter the quantity", controller.quantityField.getPromptText());
+    }
+
+    @Test
+    void changeLanguageToEnglishSetsLTR() {
+        controller.languageComboBox.getItems().addAll("English", "Finnish", "Arabic");
+        controller.languageComboBox.setValue("English");
+
+        controller.changeLanguage();
+
+        assertEquals(javafx.geometry.NodeOrientation.LEFT_TO_RIGHT, controller.root.getNodeOrientation());
+    }
+
+    @Test
+    void changeLanguageToFinnish() {
+        controller.languageComboBox.getItems().addAll("English", "Finnish");
+        controller.languageComboBox.setValue("Finnish");
+
+        controller.changeLanguage();
+
+        assertEquals(javafx.geometry.NodeOrientation.LEFT_TO_RIGHT, controller.root.getNodeOrientation());
+    }
+
+    @Test
+    void changeLanguageToArabicSetsRTL() {
+        controller.languageComboBox.setValue("Arabic");
+
+        controller.changeLanguage();
+
+        assertEquals(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT,
+                controller.root.getNodeOrientation());
+    }
+
+    @Test
+    void changeLanguageToUnsupportedDefaultsToLTR() {
+        controller.languageComboBox.setValue("xx");
+
+        controller.changeLanguage();
+
+        assertEquals(javafx.geometry.NodeOrientation.LEFT_TO_RIGHT,
+                controller.root.getNodeOrientation());
+    }
 }

@@ -69,6 +69,29 @@ class CartServiceTest {
     }
 
     @Test
+    void saveCartRecordHandlesSQLExceptionDuringUpdate() throws Exception {
+
+        Connection conn = mock(Connection.class);
+        PreparedStatement stmt = mock(PreparedStatement.class);
+
+        try (MockedStatic<DatabaseConnection> dbMock = mockStatic(DatabaseConnection.class)) {
+
+            dbMock.when(DatabaseConnection::getConnection).thenReturn(conn);
+
+            when(conn.prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS)))
+                    .thenReturn(stmt);
+
+            when(stmt.executeUpdate()).thenThrow(new SQLException(ERROR));
+
+            CartService service = new CartService();
+
+            int result = service.saveCartRecord(1, 10.0, "en");
+
+            assertEquals(-1, result);
+        }
+    }
+
+    @Test
     void saveCartItemExecutesInsertWithSubtotal() throws Exception {
 
         Connection conn = mock(Connection.class);

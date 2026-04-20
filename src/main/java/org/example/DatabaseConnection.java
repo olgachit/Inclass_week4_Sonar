@@ -18,14 +18,18 @@ public class DatabaseConnection {
             dotenv = null;
         }
     }
-    private static final String URL = "jdbc:mariadb://localhost:3306/shopping_cart_localization";
+    private static Connection connection;
+    private static final String URL = dotenv.get("DB_URL");
     private static final String USER = dotenv.get("DB_USER");
     private static final String PASS = dotenv.get("DB_PASS");
 
     private DatabaseConnection() {
     }
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASS);
+    public static synchronized Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            connection = DriverManager.getConnection(URL, USER, PASS);
+        }
+        return connection;
     }
 }

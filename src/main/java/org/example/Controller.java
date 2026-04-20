@@ -87,7 +87,7 @@ public class Controller {
         }
     }
 
-    private void changeLanguage() {
+    void changeLanguage() {
         String lang = languageComboBox.getValue();
 
         switch (lang) {
